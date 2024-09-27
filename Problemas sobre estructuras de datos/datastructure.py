@@ -54,8 +54,7 @@ def load_structures(number_operations):
         return "priority queue"
     if can_be_stack or can_be_queue or can_be_priority_queue:
         return "not sure"
-    if not can_be_stack or not can_be_queue or not can_be_priority_queue:
-        return "impossible"
+    return "impossible"
 
 
 for line in stdin:
