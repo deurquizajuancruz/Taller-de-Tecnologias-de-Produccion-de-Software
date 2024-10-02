@@ -3,17 +3,11 @@ from sys import stdin
 
 
 def delete_stack(stack, element):
-    try:
-        return stack.pop() == element
-    except:
-        return False
+    return stack.pop() == element if stack else False
 
 
 def delete_queue(queue, element):
-    try:
-        return queue.popleft() == element
-    except:
-        return False
+    return queue.popleft() == element if queue else False
 
 
 def delete_priority(priority, element):
