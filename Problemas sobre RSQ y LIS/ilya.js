@@ -1,12 +1,12 @@
 const readline = require('readline');
 
-function fillArray(sequence) {
+const fillArray = sequence => {
     const n = sequence.length;
     const equals = new Array(n).fill(0);
     for (let i = 1; i < n; i++) {
         equals[i] = equals[i - 1];
         if (sequence[i] === sequence[i - 1]) {
-            equals[i] += 1;
+            equals[i]++;
         }
     }
     return equals;
