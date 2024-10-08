@@ -8,10 +8,7 @@ def lis(elephants):
 
     for i in range(n - 1, -1, -1):
         for j in range(i + 1, n):
-            if (
-                elephants[i][1] > elephants[j][1]
-                and lis[i] < lis[j] + 1
-            ):
+            if elephants[i][1] > elephants[j][1] and lis[i] < lis[j] + 1:
                 lis[i] = lis[j] + 1
                 prev[i] = j
 
