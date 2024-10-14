@@ -34,8 +34,7 @@ while line:
     index += 1
     line = stdin.readline().strip()
 
-sorted_elephants = sorted(elephants, key=lambda e: e[0])
-result = lis(sorted_elephants)
+result = lis(sorted(elephants, key=lambda e: e[0]))
 print(len(result))
 for e in result:
     print(e)
