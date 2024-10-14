@@ -5,7 +5,10 @@ def lcs(string1: str, string2: str) -> int:
     len1 = len(string1) + 1
     len2 = len(string2) + 1
 
-    matrix = [[0] * len2 for _ in range(len1)]
+    matrix = [[0] * len2]
+    for _ in range(1, len1):
+        row = [0] + [None] * (len2 - 1)
+        matrix.append(row)
 
     for i in range(1, len1):
         for j in range(1, len2):
