@@ -4,10 +4,9 @@ def lcs(string1: str, string2: str) -> int:
     len1 = len(string1) + 1
     len2 = len(string2) + 1
 
-    matrix = [[0] * len2]
+    matrix = [[0] * len2] # Primer fila inicializada en 0
     for _ in range(1, len1):
-        row = [0] + [None] * (len2 - 1)
-        matrix.append(row)
+        matrix.append([0] + [None] * (len2 - 1)) # Primer columna en 0 y el resto en None
 
 
     for i in range(1, len1):
