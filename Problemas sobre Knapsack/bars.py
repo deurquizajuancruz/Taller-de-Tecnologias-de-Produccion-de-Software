@@ -1,8 +1,8 @@
 from sys import stdin
 
 
-def knapsack(suitcases, maximum) -> int:
-    len1 = len(suitcases) + 1
+def knapsack(bars, maximum) -> int:
+    len1 = len(bars) + 1
     len2 = maximum + 1
 
     matrix = [[0] * len2]  # Primer fila inicializada en 0
@@ -13,12 +13,12 @@ def knapsack(suitcases, maximum) -> int:
 
     for i in range(1, len1):
         for j in range(1, len2):
-            if suitcases[i - 1] > j:
+            if bars[i - 1] > j:
                 matrix[i][j] = matrix[i - 1][j]
             else:
                 matrix[i][j] = max(
                     matrix[i - 1][j],
-                    matrix[i - 1][j - suitcases[i - 1]] + suitcases[i - 1],
+                    matrix[i - 1][j - bars[i - 1]] + bars[i - 1],
                 )
 
     return matrix[len1 - 1][len2 - 1]
@@ -26,12 +26,8 @@ def knapsack(suitcases, maximum) -> int:
 
 cases = int(stdin.readline().strip())
 for _ in range(cases):
-    suitcases = list(map(int, stdin.readline().split()))
-    maximum = sum(suitcases) / 2
-
-    if not maximum.is_integer():
-        result = "NO"
-    else:
-        maximum = int(maximum)
-        result = "YES" if knapsack(suitcases, maximum) == maximum else "NO"
+    wish = int(stdin.readline().strip())
+    number_bars = int(stdin.readline().strip())
+    bars = list(map(int, stdin.readline().split()))
+    result = "YES" if knapsack(bars, wish) == wish else "NO"
     print(result)
