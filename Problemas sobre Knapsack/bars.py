@@ -29,5 +29,4 @@ for _ in range(cases):
     wish = int(stdin.readline().strip())
     number_bars = int(stdin.readline().strip())
     bars = list(map(int, stdin.readline().split()))
-    result = "YES" if knapsack(bars, wish) == wish else "NO"
-    print(result)
+    print("YES" if knapsack(bars, wish) == wish else "NO")
