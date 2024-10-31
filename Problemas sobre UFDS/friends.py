@@ -16,9 +16,6 @@ class UFDS:
             self.parent[person] = self.find_set(self.parent[person])
         return self.parent[person]
 
-    def same_set(self, first: str, second: str) -> bool:
-        return self.find_set(first) == self.find_set(second)
-
     def union_set(self, first: str, second: str) -> int:
         x: str = self.find_set(first)
         y: str = self.find_set(second)
