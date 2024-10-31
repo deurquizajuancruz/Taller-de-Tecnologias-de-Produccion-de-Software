@@ -28,60 +28,58 @@ class UFDS:
 class Graph:
 
     def __init__(self, n: int):
-        self.calles = []
+        self.streets = []
         self.n = n
-        self.conexiones = [[] for _ in range(n)]
+        self.connections = [[] for _ in range(n)]
 
-    def agregar_calle(self, peso: int, primero: int, segundo: int) -> None:
-        self.calles.append((peso, primero, segundo))
+    def add_street(self, weight: int, first: int, second: int) -> None:
+        self.streets.append((weight, first, second))
 
     def mst(self) -> None:
         ufds = UFDS(self.n)
-        self.calles.sort()
-        for intensidad, calle1, calle2 in self.calles:
-            if ufds.find_set(calle1) != ufds.find_set(calle2):
-                ufds.union_set(calle1, calle2)
-                self.conexiones[calle1].append((calle2, intensidad))
-                self.conexiones[calle2].append((calle1, intensidad))
-    
-    def max_intensidad_camino(self, origen: int, destino: int):
-        visitado = [False] * self.n
-        return self.dfs(origen, destino, visitado, -1)
+        self.streets.sort()
+        for weight, street1, street2 in self.streets:
+            if ufds.find_set(street1) != ufds.find_set(street2):
+                ufds.union_set(street1, street2)
+                self.connections[street1].append((street2, weight))
+                self.connections[street2].append((street1, weight))
 
-    def dfs(self, origen: int, destino: int, visitado: list, max_actual: int) -> int:
-        if origen == destino:
-            return max_actual
-        visitado[origen] = True
-        for conexion, intensidad in self.conexiones[origen]:
-            if not visitado[conexion]:
-                maximo = self.dfs(conexion, destino, visitado, max(max_actual, intensidad))
-                if maximo != -1:
-                    return maximo
+    def max_intensity_path(self, origin: int, destiny: int) -> int:
+        visited = [False] * self.n
+        return self.dfs(origin, destiny, visited, -1)
+
+    def dfs(self, origin: int, destiny: int, visited: list, actual_max: int) -> int:
+        if origin == destiny:
+            return actual_max
+        visited[origin] = True
+        for connection, intensity in self.connections[origin]:
+            if not visited[connection]:
+                maximum = self.dfs(
+                    connection, destiny, visited, max(actual_max, intensity)
+                )
+                if maximum != -1:
+                    return maximum
         return -1
+
 
 first_data = stdin.readline().strip().split()
 number_case: int = 1
-resultados = []
+results = []
 while first_data != ["0", "0", "0"]:
-    c: int = int(first_data[0])
-    s: int = int(first_data[1])
-    q: int = int(first_data[2])
+    c, s, q = map(int, first_data)
     my_graph = Graph(c)
     for _ in range(s):
         line = stdin.readline().strip().split()
-        first: int = int(line[0])
-        second: int = int(line[1])
-        weight: int = int(line[2])
-        my_graph.agregar_calle(weight, first - 1, second - 1)
+        first, second, weight = map(int, line)
+        my_graph.add_street(weight, first - 1, second - 1)
     my_graph.mst()
-    resultados.append(f"Case #{number_case}")
+    results.append(f"Case #{number_case}")
     for _ in range(q):
         query = stdin.readline().strip().split()
-        calle1: int = int(query[0])
-        calle2: int = int(query[1])
-        minmax: int = my_graph.max_intensidad_camino(calle1 - 1, calle2 - 1)
-        resultados.append(str(minmax) if minmax != -1 else "no path")
-    resultados.append("")
-    number_case+=1
+        street1, street2 = map(int, query)
+        minmax: int = my_graph.max_intensity_path(street1 - 1, street2 - 1)
+        results.append(str(minmax) if minmax != -1 else "no path")
+    results.append("")
+    number_case += 1
     first_data = stdin.readline().strip().split()
-print("\n".join(resultados).strip())
+print("\n".join(results).strip())
