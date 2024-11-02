@@ -10,9 +10,6 @@ class Node:
     def add_dependency(self, dependency) -> None:
         self.dependencies.append(dependency)
 
-    def get_dependencies_length(self) -> int:
-        return len(self.dependencies)
-
     def get_dependencies(self) -> list:
         return self.dependencies
 
