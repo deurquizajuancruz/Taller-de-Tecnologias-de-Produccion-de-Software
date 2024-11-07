@@ -27,9 +27,8 @@ while True:
     number_holes: int = int(line[0])
     coord: list[float] = list(map(float, line[1:]))
     x_gopher, y_gopher, x_dog, y_dog = coord[0], coord[1], coord[2], coord[3]
-    holes: list[tuple] = []
+    holes: list[tuple[float, float]] = []
     for _ in range(number_holes):
-        coord_hole = tuple(map(float, stdin.readline().split()))
-        holes.append(coord_hole)
+        holes.append(tuple(map(float, stdin.readline().split())))
     print(escape(holes))
     stdin.readline()
