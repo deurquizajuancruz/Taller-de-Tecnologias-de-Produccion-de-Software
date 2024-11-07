@@ -2,19 +2,13 @@ from sys import stdin
 from math import sqrt
 
 
-def escape(holes: list[tuple]) -> str:
-    can_escape: bool = False
+def distance(point1: tuple[float, float], point2: tuple[float, float]) -> float:
+    return sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
+
+
+def escape(holes: list[tuple[float, float]]) -> str:
     for hole in holes:
-        distance_gopher: float = sqrt(
-            (x_gopher - hole[0]) * (x_gopher - hole[0])
-            + (y_gopher - hole[1]) * (y_gopher - hole[1])
-        )
-        distance_dog: float = sqrt(
-            (x_dog - hole[0]) * (x_dog - hole[0])
-            + (y_dog - hole[1]) * (y_dog - hole[1])
-        )
-        can_escape = distance_dog >= distance_gopher * 2
-        if can_escape:
+        if distance((x_dog, y_dog), hole) >= distance((x_gopher, y_gopher), hole) * 2:
             return f"The gopher can escape through the hole at ({hole[0]:.3f},{hole[1]:.3f})."
 
     return "The gopher cannot escape."
